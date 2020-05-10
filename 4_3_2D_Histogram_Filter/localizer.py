@@ -15,13 +15,15 @@ def initialize_beliefs(grid):
     return beliefs
 
 def sense(color, grid, beliefs, p_hit, p_miss):
-    new_beliefs = []
 
-    #
-    # TODO - implement this in part 2
-    #
+    new_beliefs = beliefs
 
-    return new_beliefs
+    for i, row in enumerate(beliefs):
+        for j, cell in enumerate(row):
+            hit = (color == grid[i][j])
+            new_beliefs[i][j] = cell * (hit * p_hit + (1 - hit) * p_miss)
+
+    return normalize(new_beliefs)
 
 def move(dy, dx, beliefs, blurring):
     height = len(beliefs)
